@@ -41,3 +41,8 @@
   (cond ((or (zerop n1) (zerop n2)) 0)
         ((= 1 n1) n2)
         ('t (sum n2 (product (1- n1) n2)))))
+
+(defun power (n i)
+       "Returns n^i"
+       (if (= i 0) 1
+           (product n (power n (1- i)))))
