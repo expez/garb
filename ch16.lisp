@@ -39,3 +39,11 @@
   (cond ((null xss) 'nil)
         ((eql (first (first xss)) e) (first xss))
         ('t (my-assoc e (rest xss)))))
+
+(defun allbut (n l)
+  "Returns the list l after dropping the first n elements."
+  (check-type l list)
+  (assert (> n 0) (n) "n has to be greater than 0, but is ~S." n)
+  (cond ((> n (length l)) '())
+        ((= 0 n) l)
+        ('t (allbut (1- n) (rest l)))))
