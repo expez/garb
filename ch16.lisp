@@ -24,3 +24,18 @@
         ((or (null l1) (null l2)) 'nil)
         ((eql (first l1) (first l2)) (equal-lelt (rest l1) (rest l2)))
         ('t 'nil)))
+
+(defun my-nth (n l)
+  "Returns the nth element of l."
+  (check-type l list)
+  (cond ((null l) 'nil)
+        ((= 0 n) (first l))
+        ('t (my-nth (1- n) (rest l)))))
+
+(defun my-assoc (e xss)
+  "xss is a list of list. Assoc returns the first list from xss where
+  the first element is e."
+  (check-type xss list)
+  (cond ((null xss) 'nil)
+        ((eql (first (first xss)) e) (first xss))
+        ('t (my-assoc e (rest xss)))))
