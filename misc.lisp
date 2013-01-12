@@ -1,6 +1,4 @@
-(defpackage misc)
-(declaim (optimize (speed 0) (safety 0) (debug 3)))
-
+(in-package :misc)
 (defun sum (n1 n2)
   "Returns the sum of two nonneggative integers."
   (assert

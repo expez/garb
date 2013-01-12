@@ -1,6 +1,3 @@
-(defpackage :ch16
-  (:use :util :common-lisp))
-
 (in-package :ch16)
 
 (defun before (e1 e2 l)

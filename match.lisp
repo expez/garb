@@ -1,6 +1,3 @@
-(defpackage :match
-  (:use :common-lisp))
-
 (in-package :match)
 
 
