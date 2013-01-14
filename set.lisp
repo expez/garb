@@ -36,18 +36,28 @@
   "Returns the union of set s1 and s2."
   (check-type s1 (satisfies setp))
   (check-type s2 (satisfies setp))
-  (makeset (concatenate 'list s1 s2)))
+  (let ((l1 s1)
+        (l2 s2))
+    (setf (elt l1 0) 0)
+    (setf (elt l2 0) 0)
+    (makeset (concatenate 'list (cl:rest l1) (cl:rest l2)))))
 
 (defun first (l)
   "Returns the first element of the set."
   (check-type l (satisfies setp))
   (elt l 1))
 
-(defun rest (l)
+(defun rest (s)
   "Returns the set after dropping the first element."
-  (check-type l (satisfies setp))
-  (setf (elt l 0) 0) ;Without this (listp l) is nil.
-  (cl:rest (cl:rest l)))
+  (check-type s (satisfies setp))
+  (let ((l s)
+        (setf (elt l 0) 0) ;Without this (listp l) is nil.
+        (cons :set (cl:rest (cl:rest l))))))
+
+(defun insert (e s)
+  "Inserts element e into set s"
+  (check-type s (satisfies setp))
+  (union (makeset '(e)) s))
 
 (deftype set ()
     "A set is a list of only unique elements."
