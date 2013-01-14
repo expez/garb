@@ -1,12 +1,22 @@
 (in-package :cl-user)
 
-(defpackage :set
+(defpackage :util
   (:use :common-lisp)
-  (:shadow :set)
-  (:export :set))
+  (:export :elementp
+           :element
+           :bag))
+
+(defpackage :set
+  (:use :common-lisp :util)
+  (:shadow :set
+           :union)
+  (:export :set
+           :makeset
+           :union))
 
 (defpackage :ch16
-  (:use :util :common-lisp))
+  (:use :util
+        :common-lisp))
 
 (defpackage :match
   (:use :common-lisp))

@@ -1,9 +1,3 @@
-(defpackage :util
-  (:use :common-lisp)
-  (:export
-   :elementp
-   :element))
-
 (in-package :util)
 
 (defun elementp (e)
@@ -15,3 +9,8 @@
   "Elements are objects testable by EQL, namely symbols, characters,
   numbers and packages."
   '(satifies util:elementp))
+
+(deftype bag ()
+  "A bag is a list where the order of elements does not matter and
+  elements can occur more than once."
+  '(satisfies listp))
