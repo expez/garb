@@ -9,10 +9,15 @@
 (defpackage :set
   (:use :common-lisp :util)
   (:shadow :set
-           :union)
+           :union
+           :first
+           :rest
+           :remove-duplicates)
   (:export :set
            :makeset
-           :union))
+           :union
+           :first
+           :rest))
 
 (defpackage :ch16
   (:use :util
