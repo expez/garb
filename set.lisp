@@ -1,5 +1,5 @@
 (in-package :set)
- (declaim (optimize (speed 0) (safety 3) (debug 3)))
+(declaim (optimize (speed 0) (safety 3) (debug 3)))
 
 (defun setp (l)
   "Returns true if none if the elements of the argument list are
@@ -15,7 +15,6 @@
   (cond ((null l) 'nil)
         ((eql (cl:first l) e) 't)
         ('t (in-list-p e (cl:rest l)))))
-
 
 (defun makeset (l)
   "Creates a set out of the list l."
@@ -114,6 +113,14 @@
           (e (complement (remove e s1) (remove e s2)))
           ((null e) (union s1 s2))
           ('t '(:set)))))
+
+(defun subsetp (s1 s2)
+  "Returns true if s1 is a subset of s2"
+  (check-type s1 (satisfies setp))
+  (check-type s2 (satisfies setp))
+  (cond ((null s1) 't)
+        ((in-set-p (first s1) s2) (subsetp (rest s1) s2))
+        't 'nil))
 
 (deftype set ()
     "A set is a list of only unique elements."
