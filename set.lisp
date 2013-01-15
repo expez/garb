@@ -1,4 +1,5 @@
 (in-package :set)
+ (declaim (optimize (speed 0) (safety 3) (debug 3)))
 
 (defun setp (l)
   "Returns true if none if the elements of the argument list are
@@ -36,28 +37,71 @@
   "Returns the union of set s1 and s2."
   (check-type s1 (satisfies setp))
   (check-type s2 (satisfies setp))
-  (let ((l1 s1)
-        (l2 s2))
-    (setf (elt l1 0) 0)
-    (setf (elt l2 0) 0)
+  (let ((l1 (copy-list s1))
+        (l2 (copy-list s2)))
+    (setf (elt l1 0) 1)
+    (setf (elt l2 0) 2)
     (makeset (concatenate 'list (cl:rest l1) (cl:rest l2)))))
 
 (defun first (l)
   "Returns the first element of the set."
   (check-type l (satisfies setp))
-  (elt l 1))
+  (if (empty l)
+      (list :set)
+      (elt l 1)))
 
 (defun rest (s)
   "Returns the set after dropping the first element."
   (check-type s (satisfies setp))
-  (let ((l s)
-        (setf (elt l 0) 0) ;Without this (listp l) is nil.
-        (cons :set (cl:rest (cl:rest l))))))
+  (let ((l (copy-list s)))
+    (setf (elt l 0) 0) ;Without this (listp l) is nil.
+    (cons :set (cl:rest (cl:rest l)))))
 
 (defun insert (e s)
   "Inserts element e into set s"
   (check-type s (satisfies setp))
-  (union (makeset '(e)) s))
+  (if (null e)
+      s
+      (union (makeset (list e)) s)))
+
+(defun intersection (s1 s2)
+  "Returns the intersection of sets s1 and s2."
+  (check-type s1 (satisfies setp))
+  (check-type s2 (satisfies setp))
+  (let ((e (next-common-element s1 s2)))
+    (if e
+        (insert e (intersection (remove e s1) (remove e s2)))
+        '(:set))))
+
+(defun remove (e s)
+  "Removes element e from set s"
+  (check-type s (satisfies setp))
+  (cond ((empty s) '(:set))
+        ((eql (first s) e) (rest s))
+        ('t (remove e (rest s)))))
+
+(defun next-common-element (s1 s2)
+  "Returns the next element s1 and s2 has in common."
+  (check-type s1 (satisfies setp))
+  (check-type s2 (satisfies setp))
+  (cond ((empty s1) 'nil)
+        ((empty s2) 'nil)
+        ((in-set-p (first s1) s2) (first s1))
+        ((next-common-element (rest s1) s2))))
+
+(defun in-set-p (e s)
+  "Returns true if e is in s"
+  (check-type s (satisfies setp))
+  (cond ((empty s) 'nil)
+                   ((eql (first s) e) 't)
+                   ('t (in-set-p e (rest s)))))
+
+(defun empty (s)
+  "Returns true if s is an empty set."
+  (check-type s (satisfies setp))
+  (if (and (= 1 (length s)) (eql (elt s 0) :set))
+      't
+      'nil))
 
 (deftype set ()
     "A set is a list of only unique elements."

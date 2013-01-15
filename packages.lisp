@@ -12,12 +12,16 @@
            :union
            :first
            :rest
-           :remove-duplicates)
+           :remove-duplicates
+           :intersection
+           :remove)
   (:export :set
            :makeset
            :union
            :first
-           :rest))
+           :rest
+           :intersection
+           :remove))
 
 (defpackage :ch16
   (:use :util
