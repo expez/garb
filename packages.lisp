@@ -34,6 +34,8 @@
         :common-lisp))
 
 (defpackage :match
-  (:use :common-lisp))
+  (:use :common-lisp)
+  (:shadow :boundp)
+  (:export :boundp))
 
 (defpackage :misc)

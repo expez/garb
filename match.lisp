@@ -1,6 +1,5 @@
 (in-package :match)
 
-
 (defun variablep (e)
   "Returns T if the first char of the symbol's name is #\?"
   (and (symbolp e)
@@ -38,3 +37,18 @@ either is ?."
           (either-is-qmarkp (first l1) (first l2)))
          (matchlelt (rest l1) (rest l2)))
         ('t 'nil)))
+
+(defun boundp (v subs)
+  "Returns true if the variable v is bound to anything in subs"
+  (check-type subs list)
+  (check-type v (satisfies variablep))
+  (cond ((null subs) 'nil)
+        ((assoc v subs) 't)
+        ('t 'nil)))
+
+(defun bound-to (v subs)
+  "Returns the element v is bound to in subs"
+  (check-type v (satisfies variablep))
+  (check-type subs list)
+  (if (boundp v subs)
+      (assoc v subs)))

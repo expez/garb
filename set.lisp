@@ -1,6 +1,10 @@
 (in-package :set)
 (declaim (optimize (speed 0) (safety 3) (debug 3)))
 
+(deftype set ()
+    "A set is a list of only unique elements."
+  '(satisfies setp))
+
 (defun setp (l)
   "Returns true if none if the elements of the argument list are
   EQL."
@@ -127,7 +131,3 @@
   (check-type s1 (satisfies setp))
   (check-type s2 (satisfies setp))
   (and (subsetp s1 s2) (subsetp s2 s1)))
-
-(deftype set ()
-    "A set is a list of only unique elements."
-  '(satisfies setp))
