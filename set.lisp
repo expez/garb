@@ -118,9 +118,15 @@
   "Returns true if s1 is a subset of s2"
   (check-type s1 (satisfies setp))
   (check-type s2 (satisfies setp))
-  (cond ((null s1) 't)
+  (cond ((empty s1) 't)
         ((in-set-p (first s1) s2) (subsetp (rest s1) s2))
-        't 'nil))
+        ('t 'nil)))
+
+(defun set-equal (s1 s2)
+  "Returns true if s1 and s2 have the same elemnts"
+  (check-type s1 (satisfies setp))
+  (check-type s2 (satisfies setp))
+  (and (subsetp s1 s2) (subsetp s2 s1)))
 
 (deftype set ()
     "A set is a list of only unique elements."

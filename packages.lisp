@@ -16,7 +16,8 @@
            :intersection
            :remove
            :complement
-           :subsetp)
+           :subsetp
+           :set-equal)
   (:export :set
            :makeset
            :union
@@ -25,7 +26,8 @@
            :intersection
            :remove
            :complement
-           :supsetp))
+           :supsetp
+           :set-equal))
 
 (defpackage :ch16
   (:use :util
