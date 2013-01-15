@@ -78,7 +78,7 @@
   (check-type s (satisfies setp))
   (cond ((empty s) '(:set))
         ((eql (first s) e) (rest s))
-        ('t (remove e (rest s)))))
+        ('t (insert (first s) (remove e (rest s))))))
 
 (defun next-common-element (s1 s2)
   "Returns the next element s1 and s2 has in common."
@@ -102,6 +102,18 @@
   (if (and (= 1 (length s)) (eql (elt s 0) :set))
       't
       'nil))
+
+(defun complement (s1 s2)
+  "Returns the complement of sets s1 and s2: the elements in s1 but
+  not in s2."
+  (check-type s1 (satisfies setp))
+  (check-type s2 (satisfies setp))
+  (let ((e (next-common-element s1 s2)))
+    (cond ((empty s1) s2)
+          ((empty s2) s1)
+          (e (complement (remove e s1) (remove e s2)))
+          ((null e) (union s1 s2))
+          ('t '(:set)))))
 
 (deftype set ()
     "A set is a list of only unique elements."

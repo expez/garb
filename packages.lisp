@@ -14,14 +14,16 @@
            :rest
            :remove-duplicates
            :intersection
-           :remove)
+           :remove
+           :complement)
   (:export :set
            :makeset
            :union
            :first
            :rest
            :intersection
-           :remove))
+           :remove
+           :complement))
 
 (defpackage :ch16
   (:use :util
