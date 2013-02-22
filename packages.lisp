@@ -27,7 +27,8 @@
            :remove
            :complement
            :supsetp
-           :set-equal))
+           :set-equal
+           :in-list-p))
 
 (defpackage :ch16
   (:use :util
@@ -35,7 +36,12 @@
 
 (defpackage :match
   (:use :common-lisp)
-  (:shadow :boundp)
-  (:export :boundp))
+  (:shadow :boundp
+           :substitute)
+  (:export :boundp)
+  (:import-from :set :in-list-p))
 
 (defpackage :misc)
+
+(defpackage :calculator
+  (:use :common-lisp))
