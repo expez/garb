@@ -45,3 +45,8 @@
 
 (defpackage :calculator
   (:use :common-lisp))
+
+(defpackage :ch18
+  (:use :common-lisp
+        :util)
+  (:shadow :tree-equal))
