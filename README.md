@@ -1,10 +1,4 @@
-cl-exercises
+garb
 ============
 
-Exercises done to learn common lisp. And scheme, probably.
-
-Exercises will be drawn from the following books:
-
-* Common Lisp: An interactive approach - Shapiro
-* PAIP
-* The Little Schemer
+All the garbage with nowhere else to go...
